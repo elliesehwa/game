@@ -1,0 +1,11 @@
+{
+  "name": "ingredient-card-game",
+  "version": "1.0.0",
+  "description": "스플렌더에서 영감을 받은 식재료 카드 수집 전략 게임",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": ["card-game", "strategy", "cooking"],
+  "license": "MIT"
+}

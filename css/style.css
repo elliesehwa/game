@@ -1,0 +1,1164 @@
+/* ========================================
+   식재료 카드 게임 - Kitchen Master
+   따뜻한 키친 테마 스타일시트
+   ======================================== */
+
+/* ── 기본 설정 ── */
+:root {
+  --bg-cream: #FFF8F0;
+  --bg-warm: #FFF3E6;
+  --bg-board: #FAEBD7;
+  --text-dark: #3E2723;
+  --text-medium: #5D4037;
+  --text-light: #8D6E63;
+  --accent-orange: #E67E22;
+  --accent-green: #27AE60;
+  --accent-red: #E74C3C;
+  --accent-gold: #F39C12;
+  --accent-blue: #3498DB;
+  --border-light: #E8D5C4;
+  --border-medium: #D4B896;
+  --shadow-soft: 0 2px 8px rgba(62, 39, 35, 0.1);
+  --shadow-medium: 0 4px 16px rgba(62, 39, 35, 0.15);
+  --shadow-hover: 0 8px 24px rgba(62, 39, 35, 0.2);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ========================================
+   시작 화면
+   ======================================== */
+#start-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FFF8F0 0%, #FFE8D6 50%, #FFF3E6 100%);
+  padding: 20px;
+}
+
+.start-container {
+  max-width: 680px;
+  width: 100%;
+  text-align: center;
+}
+
+.start-logo {
+  margin-bottom: 36px;
+}
+
+.logo-icon {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 12px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.start-logo h1 {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text-dark);
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.start-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.info-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+  border: 1px solid var(--border-light);
+}
+
+.info-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.info-card ul {
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-medium);
+  line-height: 1.8;
+}
+
+.info-card li::before {
+  content: '• ';
+  color: var(--accent-orange);
+  font-weight: bold;
+}
+
+.ingredients-preview {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.preview-token {
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-start {
+  background: linear-gradient(135deg, var(--accent-orange), #D35400);
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(230, 126, 34, 0.4);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(230, 126, 34, 0.5);
+}
+
+.btn-start:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   게임 화면 레이아웃
+   ======================================== */
+#game-screen {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+/* ── 상단 헤더 ── */
+.game-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.turn-info {
+  flex-shrink: 0;
+  background: var(--accent-orange);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ── 상대(AI) 패널 ── */
+.opponent-panel {
+  flex: 1;
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.opponent-panel.active {
+  border-color: var(--accent-orange);
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.player-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.player-score {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--accent-orange);
+}
+
+.player-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.player-tokens {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.player-tokens.mini-row {
+  gap: 6px;
+}
+
+.player-token {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.player-token.mini {
+  font-size: 12px;
+}
+
+.mini-token {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.mini-token.small {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+
+.player-token-count {
+  font-weight: 700;
+}
+
+.bonus-badge {
+  background: var(--accent-green);
+  color: white;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.bonus-badge.small {
+  font-size: 9px;
+  padding: 0 4px;
+}
+
+.chef-badge {
+  font-size: 16px;
+  cursor: default;
+}
+
+/* ── 셰프 카드 영역 ── */
+.chef-section {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.chef-cards-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0;
+}
+
+.chef-card {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #FFF8E7, #FFF3D6);
+  border: 2px solid #F0D9A0;
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.chef-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.chef-emoji {
+  font-size: 24px;
+}
+
+.chef-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 2px 0;
+}
+
+.chef-points {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--accent-gold);
+}
+
+.chef-requirements {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.chef-req {
+  font-weight: 700;
+}
+
+/* ── 토큰 풀 ── */
+.token-section {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.token-pool {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.token-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  min-width: 70px;
+}
+
+.token-item:hover:not(.empty):not(.wild-token) {
+  background: var(--bg-warm);
+  transform: translateY(-2px);
+}
+
+.token-item.selected {
+  border-color: var(--accent-orange);
+  background: var(--bg-warm);
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.2);
+}
+
+.token-item.empty {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.wild-token {
+  cursor: default;
+  opacity: 0.9;
+}
+
+.token-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15), inset 0 -2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.token-item:hover:not(.empty) .token-circle {
+  transform: scale(1.08);
+}
+
+.token-emoji {
+  font-size: 20px;
+}
+
+.token-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-medium);
+}
+
+.token-count {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text-dark);
+}
+
+/* ── 카드 보드 ── */
+.card-board {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* 덱 인디케이터 */
+.deck-indicator {
+  flex-shrink: 0;
+  width: 70px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 6px;
+  color: white;
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
+}
+
+.deck-indicator.tier1 {
+  background: linear-gradient(135deg, #81C784, #66BB6A);
+}
+
+.deck-indicator.tier2 {
+  background: linear-gradient(135deg, #64B5F6, #42A5F5);
+}
+
+.deck-indicator.tier3 {
+  background: linear-gradient(135deg, #BA68C8, #AB47BC);
+}
+
+.deck-stars {
+  font-size: 14px;
+}
+
+.deck-label {
+  font-size: 12px;
+}
+
+.deck-count {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+/* ── 레시피 카드 ── */
+.recipe-card {
+  flex: 1;
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+  position: relative;
+}
+
+.recipe-card:hover:not(.empty-slot):not(.disabled) {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.recipe-card.affordable {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.15), var(--shadow-soft);
+}
+
+.recipe-card.affordable:hover {
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.25), var(--shadow-hover);
+}
+
+.recipe-card.disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.recipe-card.tier1 { border-left: 4px solid #81C784; }
+.recipe-card.tier2 { border-left: 4px solid #64B5F6; }
+.recipe-card.tier3 { border-left: 4px solid #BA68C8; }
+
+.recipe-card.empty-slot {
+  background: var(--bg-warm);
+  border: 2px dashed var(--border-light);
+  cursor: default;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-text {
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.card-bonus {
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.card-points {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--accent-gold);
+  line-height: 1;
+}
+
+.card-points.mini {
+  font-size: 14px;
+}
+
+.card-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-calories {
+  font-size: 10px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.card-cost {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.cost-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.cost-badge.satisfied {
+  opacity: 0.5;
+}
+
+/* ── 행동 영역 ── */
+.action-section {
+  min-height: 50px;
+}
+
+.action-bar {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.action-instruction {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.action-hint {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-left: auto;
+}
+
+.same-token-choices {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 버튼 공통 */
+.btn {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-action {
+  background: linear-gradient(135deg, var(--accent-orange), #D35400);
+  color: white;
+  box-shadow: 0 2px 8px rgba(230, 126, 34, 0.3);
+}
+
+.btn-action:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, var(--accent-green), #1E8449);
+  color: white;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn-cancel {
+  background: #EEE;
+  color: var(--text-medium);
+}
+
+.btn-cancel:hover {
+  background: #DDD;
+}
+
+.btn-token {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  background: white;
+}
+
+.btn-token:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-buy {
+  background: linear-gradient(135deg, var(--accent-green), #1E8449);
+  color: white;
+  padding: 10px 24px;
+  font-size: 15px;
+}
+
+.btn-buy.disabled {
+  background: #CCC;
+}
+
+.btn-reserve {
+  background: linear-gradient(135deg, var(--accent-blue), #2471A3);
+  color: white;
+  padding: 10px 24px;
+  font-size: 15px;
+}
+
+.btn-reserve:disabled {
+  background: #CCC;
+}
+
+/* ── 하단: 플레이어 패널 + 로그 ── */
+.game-footer {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 10px;
+}
+
+.player-panel {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.player-panel.active {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15), var(--shadow-soft);
+}
+
+/* 예약 카드 */
+.reserved-section {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+}
+
+.reserved-section h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.reserved-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.reserved-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--bg-warm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 12px;
+}
+
+.reserved-card:hover {
+  background: #FFE8D6;
+  box-shadow: var(--shadow-soft);
+}
+
+.reserved-card.affordable {
+  border-color: var(--accent-green);
+  background: #E8F8F0;
+}
+
+.reserved-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.reserved-tag {
+  font-size: 11px;
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.card-bonus.mini {
+  font-size: 12px;
+  padding: 1px 6px;
+}
+
+/* ── 로그 패널 ── */
+.log-panel {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.game-log {
+  flex: 1;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 12px;
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.log-entry {
+  padding: 2px 0;
+  border-bottom: 1px solid #F5F0EB;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 모달 ── */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.modal-backdrop {
+  width: 100%;
+  height: 100%;
+  background: rgba(62, 39, 35, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 0;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(62, 39, 35, 0.3);
+  overflow: hidden;
+  animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-card-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-bonus {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.modal-points {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--accent-gold);
+}
+
+.modal-content h3 {
+  padding: 0 20px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.modal-calories {
+  padding: 4px 20px 12px;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.modal-costs {
+  padding: 0 20px 16px;
+}
+
+.cost-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #F5F0EB;
+}
+
+.modal-actions {
+  padding: 16px 20px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: var(--bg-warm);
+}
+
+/* 게임 종료 */
+.game-over {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.game-over h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.winner-announce {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--accent-orange);
+  margin-bottom: 20px;
+}
+
+.final-scores {
+  margin-bottom: 24px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  font-size: 14px;
+  background: var(--bg-warm);
+}
+
+.score-row.winner {
+  background: #FFF3E0;
+  border: 2px solid var(--accent-gold);
+  font-weight: 700;
+}
+
+/* ── 토큰 버리기 패널 ── */
+.discard-panel {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--accent-red);
+}
+
+.discard-panel h4 {
+  color: var(--accent-red);
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.discard-tokens {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.discard-token {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  padding: 6px 10px;
+  background: var(--bg-warm);
+  border-radius: var(--radius-sm);
+}
+
+.discard-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.discard-controls button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.discard-controls button:hover:not(:disabled) {
+  background: var(--accent-orange);
+  color: white;
+  border-color: var(--accent-orange);
+}
+
+.discard-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.discard-count {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ── 토스트 ── */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text-dark);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--shadow-medium);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
+   반응형 디자인
+   ======================================== */
+@media (max-width: 900px) {
+  .game-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .game-log {
+    max-height: 100px;
+  }
+
+  .start-info {
+    grid-template-columns: 1fr;
+  }
+
+  .start-logo h1 {
+    font-size: 36px;
+  }
+
+  .card-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .recipe-card {
+    min-width: 140px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  #game-screen {
+    padding: 8px;
+  }
+
+  .token-pool {
+    gap: 6px;
+  }
+
+  .token-item {
+    padding: 6px 8px;
+    min-width: 56px;
+  }
+
+  .token-circle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .token-emoji {
+    font-size: 16px;
+  }
+
+  .recipe-card {
+    min-width: 120px;
+    padding: 8px;
+    min-height: 80px;
+  }
+
+  .card-name {
+    font-size: 11px;
+  }
+
+  .chef-card {
+    min-width: 100px;
+    padding: 6px 10px;
+  }
+
+  .modal-content {
+    max-width: 340px;
+  }
+
+  .game-header {
+    flex-direction: column;
+  }
+}
+
+/* ── 스크롤바 커스텀 ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-warm);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}

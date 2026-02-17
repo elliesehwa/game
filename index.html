@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>식재료 카드 게임 - Kitchen Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================================ -->
+  <!-- 시작 화면 -->
+  <!-- ================================ -->
+  <div id="start-screen">
+    <div class="start-container">
+      <div class="start-logo">
+        <span class="logo-icon">🍳</span>
+        <h1>Kitchen Master</h1>
+        <p class="subtitle">식재료 카드 전략 게임</p>
+      </div>
+
+      <div class="start-info">
+        <div class="info-card">
+          <h3>🎮 게임 규칙</h3>
+          <ul>
+            <li><strong>재료 토큰</strong>을 모아 <strong>레시피 카드</strong>를 완성하세요</li>
+            <li>완성된 레시피는 <strong>영구 보너스</strong>를 제공합니다</li>
+            <li>보너스를 쌓아 <strong>셰프 칭호</strong>를 획득하세요</li>
+            <li><strong>15점</strong>을 먼저 달성하면 승리!</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>🎯 턴 행동</h3>
+          <ul>
+            <li>🥩🌾🧈 서로 다른 재료 <strong>3개</strong> 가져오기</li>
+            <li>🥩🥩 같은 재료 <strong>2개</strong> 가져오기 (풀에 4개 이상)</li>
+            <li>📌 레시피 카드 <strong>예약</strong> (+만능 토큰)</li>
+            <li>🍳 레시피 카드 <strong>구매</strong> (요리 완성!)</li>
+          </ul>
+        </div>
+
+        <div class="ingredients-preview">
+          <span class="preview-token" style="background: #E74C3C">🥩 단백질</span>
+          <span class="preview-token" style="background: #F39C12">🌾 탄수화물</span>
+          <span class="preview-token" style="background: #E67E22">🧈 지방</span>
+          <span class="preview-token" style="background: #27AE60">🥬 비타민</span>
+          <span class="preview-token" style="background: #3498DB">🧂 미네랄</span>
+        </div>
+      </div>
+
+      <button class="btn-start" onclick="ui.startGame()">
+        🍽️ 게임 시작
+      </button>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- 게임 화면 -->
+  <!-- ================================ -->
+  <div id="game-screen" style="display: none;">
+
+    <!-- 상단: 상대 정보 + 셰프 카드 -->
+    <header class="game-header">
+      <div id="opponent-info" class="opponent-panel"></div>
+      <div id="turn-info" class="turn-info"></div>
+    </header>
+
+    <!-- 셰프 카드 영역 -->
+    <section id="chef-section" class="chef-section">
+      <div class="section-label">🏅 셰프 칭호</div>
+      <div id="chef-cards" class="chef-cards-row"></div>
+    </section>
+
+    <!-- 메인 게임 보드 -->
+    <main class="game-board">
+      <!-- 토큰 풀 -->
+      <section class="token-section">
+        <div class="section-label">🧺 재료 풀</div>
+        <div id="token-pool" class="token-pool"></div>
+      </section>
+
+      <!-- 카드 보드 -->
+      <section class="card-board">
+        <div id="board-tier3" class="card-row tier3-row"></div>
+        <div id="board-tier2" class="card-row tier2-row"></div>
+        <div id="board-tier1" class="card-row tier1-row"></div>
+      </section>
+    </main>
+
+    <!-- 행동 버튼 -->
+    <section id="action-buttons" class="action-section"></section>
+
+    <!-- 하단: 플레이어 정보 -->
+    <footer class="game-footer">
+      <div id="player-info" class="player-panel"></div>
+      <div class="log-panel">
+        <div class="section-label">📜 기록</div>
+        <div id="game-log" class="game-log"></div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- 모달 -->
+  <div id="card-modal" class="modal" style="display: none;"></div>
+
+  <!-- 토스트 -->
+  <div id="toast" class="toast"></div>
+
+  <!-- 스크립트 -->
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/ui.js"></script>
+
+</body>
+</html>
