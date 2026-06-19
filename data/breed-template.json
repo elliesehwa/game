@@ -7,7 +7,7 @@
   "traits": {
     "train_difficulty": 0,
     "activity_level": 0,
-    "personality": ["", "", ""],
+    "temperament": ["", "", ""],
     "common_diseases": ["", "", ""]
   },
 

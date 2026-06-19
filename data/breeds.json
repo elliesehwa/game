@@ -8,7 +8,7 @@
     "traits": {
       "train_difficulty": 1,
       "activity_level": 4,
-      "personality": ["다정함", "영리함", "사교적"],
+      "temperament": ["다정함", "영리함", "사교적"],
       "common_diseases": ["고관절 이형성증", "백내장", "피부 알레르기"]
     },
 
