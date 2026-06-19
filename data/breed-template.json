@@ -1,0 +1,15 @@
+{
+  "id": "",
+  "name_en": "",
+  "name_ko": "",
+  "summary": "",
+
+  "traits": {
+    "train_difficulty": 0,
+    "activity_level": 0,
+    "personality": ["", "", ""],
+    "common_diseases": ["", "", ""]
+  },
+
+  "description": ""
+}

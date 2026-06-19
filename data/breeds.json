@@ -1,0 +1,17 @@
+[
+  {
+    "id": "golden_retriever",
+    "name_en": "Golden Retriever",
+    "name_ko": "골든 리트리버",
+    "summary": "온순하고 사람을 잘 따라 가족견으로 사랑받는 대형견.",
+
+    "traits": {
+      "train_difficulty": 1,
+      "activity_level": 4,
+      "personality": ["다정함", "영리함", "사교적"],
+      "common_diseases": ["고관절 이형성증", "백내장", "피부 알레르기"]
+    },
+
+    "description": "골든 리트리버는 영국에서 사냥감을 회수하는 견종으로 개량되었습니다. 성격이 온순하고 사람과 다른 동물에게 친화적이라 초보 견주에게도 무난합니다. 다만 활동량이 많아 매일 충분한 산책과 놀이가 필요합니다."
+  }
+]
