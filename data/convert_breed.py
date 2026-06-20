@@ -66,9 +66,9 @@ def convert(raw):
     return {
         "id": basics["breed_name_url"],          # slug (예: "beagle")
         "name_en": basics["breed_name"],
-        "name_ko": "",                            # 한글 이름 직접 채우기
+        "name_ko": "",                            # 번역 단계에서 채움 (지금은 비움)
         "image": f"images/{basics['breed_name_url']}.png",  # 규칙 기반 자동 경로
-        "summary": "",                            # 한글 요약 직접 작성
+        "summary": first_sentence(desc.get("akc_org_blurb", "")),  # AKC 영어 한 줄
         "group": None,                            # 변종 묶음(푸들 등). 단일견종은 None
         "origin": basics.get("origin", ""),       # 원산지 (유일하게 남긴 기본 정보)
 
