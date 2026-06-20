@@ -10,6 +10,7 @@ AKC 원본 JSON → 내 견종 스키마로 변환 (필요한 것만 골라 담�
     내가 쓸 필드만 "골라서" 새 dict로 옮겨 담습니다. (화이트리스트 방식)
 
 매칭에 쓸 1~5 점수는 AKC traits 안에 이미 다 있어서 그대로 가져옵니다.
+description은 성격·건강·운동·훈련·미용 섹션에서 각 첫 문장을 영어 그대로 뽑아 합칩니다.
 ============================================================
 """
 
@@ -19,13 +20,31 @@ import sys
 
 
 def clean(text):
-    """AKC 원본의 깨진 글자(mojibake) 정리"""
+    """AKC 원본의 깨진 글자(mojibake)·HTML 정리"""
     if not text:
         return ""
-    text = text.replace("'", '"').replace("'¿", "'")
-    text = re.sub(r"[-¿]", "", text)  # 남은 깨진 제어문자 제거
-    text = text.replace("<p>", "").replace("</p>", "\n").replace("<br>", "")
-    return text.strip()
+    text = re.sub(r"[-¿]", "", text)  # 깨진 제어문자 제거
+    text = text.replace("<p>", "").replace("</p>", " ").replace("<br>", " ")
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def first_sentence(html):
+    """문단에서 첫 문장만 뽑기 (영어)"""
+    txt = clean(html)
+    parts = re.split(r"(?<=[.!?])\s+", txt)
+    return parts[0].strip() if parts and parts[0] else ""
+
+
+def build_description(desc_block, health_block):
+    """성격·건강·운동·훈련·미용 섹션에서 각 첫 문장을 뽑아 영어로 합침"""
+    lines = [
+        first_sentence(desc_block.get("akc_org_about", "")),       # 성격/개요
+        first_sentence(health_block.get("akc_org_health", "")),    # 건강
+        first_sentence(health_block.get("akc_org_exercise", "")),  # 운동
+        first_sentence(health_block.get("akc_org_training", "")),  # 훈련
+        first_sentence(health_block.get("akc_org_grooming", "")),  # 미용
+    ]
+    return " ".join(l for l in lines if l)
 
 
 def convert(raw):
@@ -36,7 +55,7 @@ def convert(raw):
     basics = bd["basics"][key]
     t = bd["traits"][key]["traits"]          # 1~5 점수들이 들어있는 곳
     desc = bd["description"][key]
-    std = bd.get("standards", {}).get(key, {})
+    health = bd["health"][key]
 
     # temperament: "curious / friendly / merry" → ["curious", "friendly", "merry"]
     temperament = [w.strip() for w in bd["traits"][key]["temperament"].split("/") if w.strip()]
@@ -49,17 +68,9 @@ def convert(raw):
         "name_en": basics["breed_name"],
         "name_ko": "",                            # 한글 이름 직접 채우기
         "image": f"images/{basics['breed_name_url']}.png",  # 규칙 기반 자동 경로
-        "summary": clean(desc.get("akc_org_blurb", "")),
-
-        # 변종 묶음용 (푸들·닥스훈트 등). 단일 견종은 비워둠
-        "group": None,
-
-        # 화면 표시용 기본 정보 (계산 안 함)
-        "basics": {
-            "origin": basics.get("origin", ""),
-            "life_expectancy": basics.get("life_expectancy", ""),
-            "popularity": basics.get("popularity_2025"),
-        },
+        "summary": "",                            # 한글 요약 직접 작성
+        "group": None,                            # 변종 묶음(푸들 등). 단일견종은 None
+        "origin": basics.get("origin", ""),       # 원산지 (유일하게 남긴 기본 정보)
 
         # 매칭 계산 + 화면 표시 (전부 1~5 점수)
         "traits": {
@@ -79,7 +90,8 @@ def convert(raw):
         # 원본엔 정리된 질병 목록이 없음(줄글뿐) → 직접/AI로 채우기
         "common_diseases": [],
 
-        "description": clean(desc.get("akc_org_about", "")),
+        # 성격·건강·운동·훈련·미용 첫 문장을 영어 그대로 합침
+        "description": build_description(desc, health),
     }
 
 

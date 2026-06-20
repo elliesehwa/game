@@ -13,12 +13,17 @@
 | `name_en` | 영어 이름 | `Beagle` |
 | `name_ko` | 한국어 이름 | `비글` |
 | `image` | 이미지 경로 (규칙: `images/{id}.png`) | `images/beagle.png` |
-| `summary` | 한두 줄 요약 (목록/카드용) | `온순하고 사람을 잘 따르는...` |
-| `basics.origin` | 원산지 | `England` |
-| `basics.life_expectancy` | 기대 수명 | `10-15 years` |
-| `basics.popularity` | AKC 인기순위(2025, 없으면 null) | `7` |
-| `common_diseases` | 잘 걸리는 질병 1~3개 | `["고관절 이형성증", ...]` |
-| `description` | 상세 설명 (상세 페이지용) | 긴 문단 |
+| `summary` | 한두 줄 요약 (목록/카드용, 한글) | `온순하고 사람을 잘 따르는...` |
+| `origin` | 원산지 (영어) | `England` |
+| `common_diseases` | 잘 걸리는 질병 1~3개 (한글) | `["고관절 이형성증", ...]` |
+| `description` | 상세 설명 (영어 원문, 상세 페이지용) | 아래 참고 |
+
+> AKC 인기순위·체중·크기는 한국 실정과 안 맞아 **제외**했습니다. 기본 정보는 `origin`만 유지.
+
+### description 작성 방식
+AKC 원본의 **성격(about) · 건강(health) · 운동(exercise) · 훈련(training) · 미용(grooming)**
+5개 섹션에서 **각 첫 문장**을 뽑아 **영어 그대로** 이어붙입니다.
+변환기(`convert_breed.py`)가 자동으로 만들어줍니다. (영양 섹션은 모든 견종 동일 보일러플레이트라 제외)
 | `group` | 변종 묶음 (없으면 `null`) | `{"id":"poodle","name_ko":"푸들","variant":"toy","variant_ko":"토이"}` |
 
 ### group (변종 묶음)

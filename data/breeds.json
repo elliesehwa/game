@@ -6,11 +6,7 @@
     "image": "images/beagle.png",
     "summary": "온순하고 사람을 잘 따르며 사냥 본능이 강한 명랑한 가족견.",
     "group": null,
-    "basics": {
-      "origin": "England",
-      "life_expectancy": "10-15 years",
-      "popularity": 7
-    },
+    "origin": "England",
     "traits": {
       "train_difficulty": 3,
       "activity_level": 4,
@@ -33,7 +29,7 @@
       "갑상선기능저하증",
       "간질"
     ],
-    "description": "비글에는 어깨높이 13인치 미만과 13~15인치의 두 가지 크기가 있습니다. 무리 사냥견으로 길러져 사람·동물과 잘 어울리고 성격이 느긋합니다. 후각이 매우 발달해 냄새를 따라가려는 본능이 강하므로 산책은 반드시 목줄을 채워야 합니다. 활동량이 많아 매일 충분한 놀이와 운동이 필요합니다."
+    "description": "There are two Beagle varieties: those standing under 13 inches at the shoulder, and those between 13 and 15 inches. Responsible breeders will screen their breeding stock for health conditions such as hip dysplasia, hypothyroidism, epilepsy, luxating patella (a dislocated kneecap), and eye disorders. Beagles are active, energetic dogs who need at least an hour of exercise every day. As with all dogs, early socialization and puppy training classes are a must. The Beagle has a smooth, dense double coat that gets heavier in the winter, so spring is shedding season."
   },
   {
     "id": "basenji",
@@ -42,11 +38,7 @@
     "image": "images/basenji.png",
     "summary": "짖지 않는 '바크리스 도그'. 고양이처럼 깔끔하고 독립적인 아프리카 사냥견.",
     "group": null,
-    "basics": {
-      "origin": "Central Africa",
-      "life_expectancy": "13-14 years",
-      "popularity": 92
-    },
+    "origin": "Central Africa",
     "traits": {
       "train_difficulty": 2,
       "activity_level": 4,
@@ -69,7 +61,7 @@
       "진행성 망막위축(PRA)",
       "고관절 이형성증"
     ],
-    "description": "바센지는 어깨높이 16~17인치의 작고 우아한 사냥견입니다. 짧고 윤기 나는 털, 동그랗게 말린 꼬리, 주름진 이마가 특징입니다. 짖지 않는 대신 요들 같은 독특한 소리를 냅니다. 고양이처럼 스스로 몸단장을 할 만큼 깔끔하고 체취가 거의 없어 실내 생활에 적합합니다. 독립적이라 낯선 사람에겐 거리를 두는 편입니다."
+    "description": "Basenjis are small, graceful hounds standing 16 or 17 inches at the shoulder. Basenji are generally healthy dogs, and responsible breeders screen for health disorders such as hypothyroidism, a type of inflammatory bowel disease called IPSID and canine hip dysplasia. Basenjis are energetic, inquisitive, and very active. Early socialization and puppy training classes are recommended for all breeds, but given the Basenji's bountiful energy, intelligence, and penchant for mischief, they are a necessity. Basenjis are fastidious creatures."
   },
   {
     "id": "poodle-toy",
@@ -83,11 +75,7 @@
       "variant": "toy",
       "variant_ko": "토이"
     },
-    "basics": {
-      "origin": "Germany",
-      "life_expectancy": "10-18 years",
-      "popularity": null
-    },
+    "origin": "Germany",
     "traits": {
       "train_difficulty": 5,
       "activity_level": 4,
@@ -110,7 +98,7 @@
       "안질환(백내장 등)",
       "간질"
     ],
-    "description": "토이 푸들은 작은 체구에도 우아함과 운동신경을 갖춘 영리한 반려견입니다. 곱슬거리는 저알러지성 털은 거의 빠지지 않아 알러지가 있는 사람에게 유리하지만, 그만큼 정기적인 미용·손질이 필요합니다. 매우 똑똑해 훈련 습득이 빠릅니다."
+    "description": "Poodles come in three size varieties: Standards should be more than 15 inches tall at the shoulder; Miniatures are 15 inches or under; Toys stand no more than 10 inches. Most Toy Poodles live long, happy, healthy lives thanks to the efforts of dedicated, responsible breeders who routinely test all breeding stock. Poodles of any size are very active dogs who require good exercise every day to suit their high energy level. Toy Poodles are extremely intelligent and are easily trained. Unless you plan to keep your Poodle clipped in a short trim, you will need to learn how to brush how to brush him daily to keep his coat from matting."
   },
   {
     "id": "poodle-miniature",
@@ -124,11 +112,7 @@
       "variant": "miniature",
       "variant_ko": "미니어처"
     },
-    "basics": {
-      "origin": "Germany",
-      "life_expectancy": "10-18 years",
-      "popularity": null
-    },
+    "origin": "Germany",
     "traits": {
       "train_difficulty": 5,
       "activity_level": 4,
@@ -151,7 +135,7 @@
       "안질환(백내장 등)",
       "간질"
     ],
-    "description": "미니어처 푸들은 토이와 스탠다드의 중간 크기로, 영리하고 활동적입니다. 푸들 공통의 곱슬거리는 저알러지성 털을 가져 털 빠짐이 적은 대신 꾸준한 미용이 필요합니다. 학습 능력이 뛰어나 다양한 훈련과 활동을 즐깁니다."
+    "description": "Poodles come in three size varieties: Standards should be more than 15 inches tall at the shoulder; Miniatures are 15 inches or under; Toys stand no more than 10 inches. Most Poodles live long, happy, healthy lives thanks to the efforts of dedicated, responsible breeders who routinely test all breeding stock for health issues such as hip dysplasia, eye disorders, epilepsy, sebaceous adenitis, von Willebrand's disease, and immune-mediated disorders. Poodles of any size are very active dogs who require good exercise every day to suit their high energy level. Poodles are extremely intelligent and are easily trained. Unless you plan to keep your Poodle clipped in a short trim, you will need to learn how to brush him daily to keep his coat from matting."
   },
   {
     "id": "poodle-standard",
@@ -165,11 +149,7 @@
       "variant": "standard",
       "variant_ko": "스탠다드"
     },
-    "basics": {
-      "origin": "Germany",
-      "life_expectancy": "10-18 years",
-      "popularity": null
-    },
+    "origin": "Germany",
     "traits": {
       "train_difficulty": 5,
       "activity_level": 4,
@@ -192,6 +172,6 @@
       "안질환(백내장 등)",
       "간질"
     ],
-    "description": "스탠다드 푸들은 푸들 3종 중 가장 크며, 우아한 외모와 뛰어난 지능·운동능력을 갖춘 견종입니다. 저알러지성 털로 털 빠짐은 적지만 큰 체구만큼 운동량과 미용 관리가 많이 필요합니다. 가족과 매우 친밀하게 지냅니다."
+    "description": "Poodles come in three size varieties: Standards should be more than 15 inches tall at the shoulder; Miniatures are 15 inches or under; Toys stand no more than 10 inches. Most Poodles live long, happy, healthy lives thanks to the efforts of dedicated, responsible breeders who routinely test all breeding stock. Poodles of any size are very active dogs who require good exercise every day to suit their high energy level. Poodles are extremely intelligent and are easily trained. Unless you plan to keep your Poodle clipped in a short trim, you will need to learn how to brush them daily to keep their coat from matting."
   }
 ]

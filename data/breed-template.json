@@ -5,12 +5,7 @@
   "image": "images/.png",
   "summary": "",
   "group": null,
-
-  "basics": {
-    "origin": "",
-    "life_expectancy": "",
-    "popularity": null
-  },
+  "origin": "",
 
   "traits": {
     "train_difficulty": 0,
