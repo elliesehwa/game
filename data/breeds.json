@@ -8,9 +8,7 @@
     "group": null,
     "basics": {
       "origin": "England",
-      "size": "중형",
       "life_expectancy": "10-15 years",
-      "weight": "약 9-13kg",
       "popularity": 7
     },
     "traits": {
@@ -24,7 +22,6 @@
       "adaptability": 4,
       "affection": 3,
       "openness_to_strangers": 3,
-      "size_score": 3,
       "temperament": [
         "curious",
         "friendly",
@@ -47,9 +44,7 @@
     "group": null,
     "basics": {
       "origin": "Central Africa",
-      "size": "중형",
       "life_expectancy": "13-14 years",
-      "weight": "약 10-11kg",
       "popularity": 92
     },
     "traits": {
@@ -63,7 +58,6 @@
       "adaptability": 3,
       "affection": 3,
       "openness_to_strangers": 3,
-      "size_score": 3,
       "temperament": [
         "independent",
         "smart",
@@ -91,9 +85,7 @@
     },
     "basics": {
       "origin": "Germany",
-      "size": "초소형",
       "life_expectancy": "10-18 years",
-      "weight": "약 2-3kg",
       "popularity": null
     },
     "traits": {
@@ -107,7 +99,6 @@
       "adaptability": 5,
       "affection": 5,
       "openness_to_strangers": 5,
-      "size_score": 1,
       "temperament": [
         "intelligent",
         "agile",
@@ -135,9 +126,7 @@
     },
     "basics": {
       "origin": "Germany",
-      "size": "소형",
       "life_expectancy": "10-18 years",
-      "weight": "약 5-7kg",
       "popularity": null
     },
     "traits": {
@@ -151,7 +140,6 @@
       "adaptability": 5,
       "affection": 5,
       "openness_to_strangers": 5,
-      "size_score": 2,
       "temperament": [
         "active",
         "proud",
@@ -179,9 +167,7 @@
     },
     "basics": {
       "origin": "Germany",
-      "size": "대형",
       "life_expectancy": "10-18 years",
-      "weight": "약 27-32kg",
       "popularity": null
     },
     "traits": {
@@ -195,7 +181,6 @@
       "adaptability": 5,
       "affection": 5,
       "openness_to_strangers": 5,
-      "size_score": 4,
       "temperament": [
         "active",
         "proud",

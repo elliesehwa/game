@@ -15,10 +15,8 @@
 | `image` | 이미지 경로 (규칙: `images/{id}.png`) | `images/beagle.png` |
 | `summary` | 한두 줄 요약 (목록/카드용) | `온순하고 사람을 잘 따르는...` |
 | `basics.origin` | 원산지 | `England` |
-| `basics.size` | 크기 | `Small` |
 | `basics.life_expectancy` | 기대 수명 | `10-15 years` |
-| `basics.weight` | 체중 | `약 9-13kg` |
-| `basics.popularity` | AKC 인기순위(2025) | `7` |
+| `basics.popularity` | AKC 인기순위(2025, 없으면 null) | `7` |
 | `common_diseases` | 잘 걸리는 질병 1~3개 | `["고관절 이형성증", ...]` |
 | `description` | 상세 설명 (상세 페이지용) | 긴 문단 |
 | `group` | 변종 묶음 (없으면 `null`) | `{"id":"poodle","name_ko":"푸들","variant":"toy","variant_ko":"토이"}` |
@@ -51,22 +49,7 @@
 | `adaptability` | 변화에 민감 | 적응 잘함 | 환경 적응력 |
 | `affection` | 독립적 | 매우 다정 | 애정 표현 |
 | `openness_to_strangers` | 낯가림 심함 | 누구나 환영 | 낯선 사람 |
-| `size_score` ⭐ | XSmall(1) | XLarge(5) | 크기 — 변종 구별 핵심 |
 | `temperament` | — | — | 성격 키워드 배열 (영어 원본) |
-
-### size_score 기준 (체중 kg 기준)
-> AKC의 size 라벨(Small/Medium..)은 부정확해서(스탠다드 푸들을 Medium 취급) **체중으로 직접 계산**합니다.
-
-| 점수 | 등급 | 체중 | 예시 |
-|:---:|------|------|------|
-| 1 | 초소형 | < 5kg | 토이 푸들, 치와와 |
-| 2 | 소형 | 5–10kg | 미니 푸들, 셔틀랜드 쉽독 |
-| 3 | 중형 | 10–25kg | 비글, 바센지 |
-| 4 | 대형 | 25–40kg | 스탠다드 푸들 |
-| 5 | 초대형 | > 40kg | 그레이트 데인, 마스티프 |
-
-`basics.size`(한글 등급)와 `traits.size_score`(숫자)는 항상 이 표로 일치시킴.
-변환기가 AKC 체중(파운드)을 자동 파싱해 계산합니다.
 
 ### temperament 키워드
 AKC `temperament`("curious / friendly / merry")를 `/` 로 잘라 배열로 저장.

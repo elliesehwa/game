@@ -8,9 +8,7 @@
 
   "basics": {
     "origin": "",
-    "size": "",
     "life_expectancy": "",
-    "weight": "",
     "popularity": null
   },
 
@@ -25,7 +23,6 @@
     "adaptability": 0,
     "affection": 0,
     "openness_to_strangers": 0,
-    "size_score": 0,
     "temperament": ["", "", ""]
   },
 
