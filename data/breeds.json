@@ -1,0 +1,171 @@
+[
+  {
+    "id": "beagle",
+    "name_en": "Beagle",
+    "name_ko": "",
+    "image": "images/beagle.png",
+    "summary": "Not only is the Beagle an excellent hunting dog and loyal companion, it is also happy-go-lucky, funny, and'thanks to its pleading expression'cute.",
+    "group": null,
+    "origin": "England",
+    "traits": {
+      "train_difficulty": 3,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 3,
+      "grooming_frequency": 2,
+      "good_with_children": 5,
+      "good_with_dogs": 5,
+      "adaptability": 4,
+      "affection": 3,
+      "openness_to_strangers": 3,
+      "temperament": [
+        "curious",
+        "friendly",
+        "merry"
+      ]
+    },
+    "common_diseases": [
+      "Hip Dysplasia",
+      "Hypothyroidism",
+      "Epilepsy"
+    ],
+    "description": "There are two Beagle varieties: those standing under 13 inches at the shoulder, and those between 13 and 15 inches. Responsible breeders will screen their breeding stock for health conditions such as hip dysplasia, hypothyroidism, epilepsy, luxating patella (a dislocated kneecap), and eye disorders. Beagles are active, energetic dogs who need at least an hour of exercise every day. As with all dogs, early socialization and puppy training classes are a must. The Beagle has a smooth, dense double coat that gets heavier in the winter, so spring is shedding season."
+  },
+  {
+    "id": "basenji",
+    "name_en": "Basenji",
+    "name_ko": "",
+    "image": "images/basenji.png",
+    "summary": "The Basenji, Africa's 'Barkless Dog,' is a compact, sweet-faced hunter of intelligence and poise.",
+    "group": null,
+    "origin": "Central Africa",
+    "traits": {
+      "train_difficulty": 2,
+      "activity_level": 4,
+      "barking_level": 1,
+      "shedding_level": 2,
+      "grooming_frequency": 1,
+      "good_with_children": 3,
+      "good_with_dogs": 3,
+      "adaptability": 3,
+      "affection": 3,
+      "openness_to_strangers": 3,
+      "temperament": [
+        "independent",
+        "smart",
+        "poised"
+      ]
+    },
+    "common_diseases": [
+      "Fanconi Syndrome",
+      "Progressive Retinal Atrophy (PRA)",
+      "Hip Dysplasia"
+    ],
+    "description": "Basenjis are small, graceful hounds standing 16 or 17 inches at the shoulder. Basenji are generally healthy dogs, and responsible breeders screen for health disorders such as hypothyroidism, a type of inflammatory bowel disease called IPSID and canine hip dysplasia. Basenjis are energetic, inquisitive, and very active. Early socialization and puppy training classes are recommended for all breeds, but given the Basenji's bountiful energy, intelligence, and penchant for mischief, they are a necessity. Basenjis are fastidious creatures."
+  },
+  {
+    "id": "poodle-toy",
+    "name_en": "Poodle (Toy)",
+    "name_ko": "",
+    "image": "images/poodle-toy.png",
+    "summary": "Despite his diminutive size, the Toy Poodle stands proudly among dogdom's true aristocrats.",
+    "group": {
+      "id": "poodle",
+      "variant": "toy"
+    },
+    "origin": "Germany",
+    "traits": {
+      "train_difficulty": 5,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 1,
+      "grooming_frequency": 4,
+      "good_with_children": 5,
+      "good_with_dogs": 3,
+      "adaptability": 5,
+      "affection": 5,
+      "openness_to_strangers": 5,
+      "temperament": [
+        "intelligent",
+        "agile",
+        "self-confident"
+      ]
+    },
+    "common_diseases": [
+      "Hip Dysplasia",
+      "Eye Disorders",
+      "Epilepsy"
+    ],
+    "description": "Poodles come in three size varieties: Standards should be more than 15 inches tall at the shoulder; Miniatures are 15 inches or under; Toys stand no more than 10 inches. Most Toy Poodles live long, happy, healthy lives thanks to the efforts of dedicated, responsible breeders who routinely test all breeding stock. Poodles of any size are very active dogs who require good exercise every day to suit their high energy level. Toy Poodles are extremely intelligent and are easily trained. Unless you plan to keep your Poodle clipped in a short trim, you will need to learn how to brush him daily to keep his coat from matting."
+  },
+  {
+    "id": "poodle-miniature",
+    "name_en": "Poodle (Miniature)",
+    "name_ko": "",
+    "image": "images/poodle-miniature.png",
+    "summary": "Whether Standard, Miniature, or Toy, and either black, white, or apricot, the Poodle stands proudly among dogdom's true aristocrats.",
+    "group": {
+      "id": "poodle",
+      "variant": "miniature"
+    },
+    "origin": "Germany",
+    "traits": {
+      "train_difficulty": 5,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 1,
+      "grooming_frequency": 4,
+      "good_with_children": 5,
+      "good_with_dogs": 3,
+      "adaptability": 5,
+      "affection": 5,
+      "openness_to_strangers": 5,
+      "temperament": [
+        "active",
+        "proud",
+        "very smart"
+      ]
+    },
+    "common_diseases": [
+      "Hip Dysplasia",
+      "Eye Disorders",
+      "Epilepsy"
+    ],
+    "description": "Poodles come in three size varieties: Standards should be more than 15 inches tall at the shoulder; Miniatures are 15 inches or under; Toys stand no more than 10 inches. Most Poodles live long, happy, healthy lives thanks to the efforts of dedicated, responsible breeders who routinely test all breeding stock for health issues such as hip dysplasia, eye disorders, epilepsy, sebaceous adenitis, von Willebrand's disease, and immune-mediated disorders. Poodles of any size are very active dogs who require good exercise every day to suit their high energy level. Poodles are extremely intelligent and are easily trained. Unless you plan to keep your Poodle clipped in a short trim, you will need to learn how to brush him daily to keep his coat from matting."
+  },
+  {
+    "id": "poodle-standard",
+    "name_en": "Poodle (Standard)",
+    "name_ko": "",
+    "image": "images/poodle-standard.png",
+    "summary": "Whether Standard, Miniature, or Toy, and either black, white, or apricot, the Poodle stands proudly among dogdom's true aristocrats.",
+    "group": {
+      "id": "poodle",
+      "variant": "standard"
+    },
+    "origin": "Germany",
+    "traits": {
+      "train_difficulty": 5,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 1,
+      "grooming_frequency": 4,
+      "good_with_children": 5,
+      "good_with_dogs": 3,
+      "adaptability": 5,
+      "affection": 5,
+      "openness_to_strangers": 5,
+      "temperament": [
+        "active",
+        "proud",
+        "very smart"
+      ]
+    },
+    "common_diseases": [
+      "Hip Dysplasia",
+      "Eye Disorders",
+      "Epilepsy"
+    ],
+    "description": "Poodles come in three size varieties: Standards should be more than 15 inches tall at the shoulder; Miniatures are 15 inches or under; Toys stand no more than 10 inches. Most Poodles live long, happy, healthy lives thanks to the efforts of dedicated, responsible breeders who routinely test all breeding stock. Poodles of any size are very active dogs who require good exercise every day to suit their high energy level. Poodles are extremely intelligent and are easily trained. Unless you plan to keep your Poodle clipped in a short trim, you will need to learn how to brush them daily to keep their coat from matting."
+  }
+]
