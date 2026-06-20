@@ -1,7 +1,7 @@
 # 견종 점수 / 필드 설명 가이드
 
-`data/breeds.json` 의 각 필드가 무슨 뜻인지, 점수는 어떤 기준인지 정리한 문서입니다.
-**데이터(JSON)에는 숫자/값만 넣고, 그 의미는 여기서 관리**합니다.
+`data/breeds.json` 의 각 필드 의미와 점수 기준 문서입니다.
+**데이터(JSON)에는 값만 넣고, 그 의미는 여기서 관리**합니다.
 
 ---
 
@@ -9,57 +9,53 @@
 
 | 필드 | 뜻 | 예시 |
 |------|----|------|
-| `id` | 고유 식별자 (영문 소문자+언더바, 중복 금지) | `golden_retriever` |
-| `name_en` | 영어 이름 | `Golden Retriever` |
-| `name_ko` | 한국어 이름 | `골든 리트리버` |
-| `summary` | 한두 줄 요약 설명 (목록/카드에 표시) | `온순하고 사람을 잘 따르는 대형견` |
-| `description` | 견종 특징 상세 설명 (상세 페이지에 표시) | 긴 문단 |
+| `id` | 고유 식별자 (slug, 소문자+하이픈) | `beagle` |
+| `name_en` | 영어 이름 | `Beagle` |
+| `name_ko` | 한국어 이름 | `비글` |
+| `image` | 이미지 경로 (규칙: `images/{id}.png`) | `images/beagle.png` |
+| `summary` | 한두 줄 요약 (목록/카드용) | `온순하고 사람을 잘 따르는...` |
+| `basics.origin` | 원산지 | `England` |
+| `basics.size` | 크기 | `Small` |
+| `basics.life_expectancy` | 기대 수명 | `10-15 years` |
+| `basics.weight` | 체중 | `약 9-13kg` |
+| `basics.popularity` | AKC 인기순위(2025) | `7` |
+| `common_diseases` | 잘 걸리는 질병 1~3개 | `["고관절 이형성증", ...]` |
+| `description` | 상세 설명 (상세 페이지용) | 긴 문단 |
+
+> ⚠️ `common_diseases`는 AKC 원본에 정리된 목록이 없어(줄글뿐) 직접/AI로 채웁니다.
+> `tests_pipe_delimited_list`(Hip Evaluation 등)는 "권장 검사 항목"이지 질병이 아님!
 
 ---
 
-## 2. traits — 매칭 계산 + 화면 표시에 함께 쓰이는 부분
+## 2. traits — 매칭 계산 + 화면 표시 (모두 1~5 점수)
 
-> `personality`(성격 키워드)는 **화면에도 보여주고** 매칭 계산에도 사용합니다.
+> AKC 원본 traits의 score를 그대로 사용. 매칭 가중치 공식에 바로 투입 가능.
+> 한국 거주환경(아파트 多)에선 ⭐ 표시 항목이 특히 중요.
 
-### 🎓 train_difficulty (훈련 난이도) — 1~5
+| 필드 | 1 (낮음) | 5 (높음) | 비고 |
+|------|----------|----------|------|
+| `train_difficulty` | 매우 쉬움 | 매우 어려움 | 훈련 난이도 |
+| `activity_level` | 거의 안 움직임 | 매우 활발 | 활동량 |
+| `barking_level` ⭐ | 거의 안 짖음 | 매우 자주 짖음 | 아파트 매칭 핵심 |
+| `shedding_level` ⭐ | 털 안 빠짐 | 털 많이 빠짐 | 알러지/청소 |
+| `grooming_frequency` | 월 1회 | 매일 | 빗질/손질 빈도 |
+| `good_with_children` ⭐ | 비권장 | 아이와 잘 어울림 | 자녀 가정 |
+| `good_with_dogs` | 비권장 | 다른 개와 잘 지냄 | 다견 가정 |
+| `adaptability` | 변화에 민감 | 적응 잘함 | 환경 적응력 |
+| `affection` | 독립적 | 매우 다정 | 애정 표현 |
+| `openness_to_strangers` | 낯가림 심함 | 누구나 환영 | 낯선 사람 |
+| `temperament` | — | — | 성격 키워드 배열 (영어 원본) |
 
-낮을수록 가르치기 쉽고, 높을수록 인내가 필요합니다.
-
-| 점수 | 의미 |
-|------|------|
-| 1 | 매우 쉬움 — 초보 견주도 무난, 빠르게 배움 |
-| 2 | 쉬움 — 기본 훈련이 수월함 |
-| 3 | 보통 — 꾸준히 하면 잘 따라옴 |
-| 4 | 어려움 — 일관된 훈련과 경험 필요 |
-| 5 | 매우 어려움 — 전문적 훈련/고집 강함 |
-
-### 🏃 activity_level (활동량) — 1~5
-
-필요한 운동량입니다. 높을수록 산책·놀이 시간이 많이 필요합니다.
-
-| 점수 | 의미 |
-|------|------|
-| 1 | 매우 적음 — 실내 위주, 짧은 산책으로 충분 |
-| 2 | 적음 — 가벼운 산책 |
-| 3 | 보통 — 하루 1회 규칙적인 산책 |
-| 4 | 많음 — 매일 충분한 운동·놀이 필요 |
-| 5 | 매우 많음 — 강도 높은 활동/넓은 공간 필요 |
-
-### 🐾 temperament (성격/기질 키워드) — 3개
-
-성격을 나타내는 키워드를 배열로 넣습니다. (화면 표시 + 매칭용)
-AKC 원본의 `temperament`("curious / friendly / merry")를 `/` 기준으로 잘라서 사용.
-예: `["curious", "friendly", "merry"]` 또는 한글 `["다정함", "영리함", "사교적"]`
-
-### 🏥 common_diseases (잘 걸리는 질병) — 1~3개
-
-자주 발생하는 질병명을 배열로 넣습니다.
-예: `["고관절 이형성증", "백내장", "피부 알레르기"]`
+### temperament 키워드
+AKC `temperament`("curious / friendly / merry")를 `/` 로 잘라 배열로 저장.
+화면 표시 + 매칭 + (나중에) 성격 문장 생성 재료로 사용.
 
 ---
 
 ## 3. 데이터 작성 규칙
 
-- 점수 필드(`train_difficulty`, `activity_level`)는 **1~5 정수만** 사용
-- 배열 항목 개수가 모자라면 칸을 비워도 되지만, 가능한 한 채우는 것을 권장
-- 새 견종은 `data/breed-template.json` 을 복사해 `data/breeds.json` 배열에 추가
+- 점수 필드는 **1~5 정수만** (0은 "미정/해당없음")
+- 새 견종은 `breed-template.json` 복사 → `breeds.json` 배열에 추가
+- 또는 AKC 원본이 있으면 `python data/convert_breed.py 파일.json` 으로 자동 변환
+  (변환 후 `name_ko`, `common_diseases`, 한글 `summary`/`description`만 손보면 됨)
+- 이미지 파일명은 `id` 와 똑같이 (`beagle.png`) → 자동화 용이

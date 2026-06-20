@@ -2,14 +2,32 @@
   "id": "",
   "name_en": "",
   "name_ko": "",
+  "image": "images/.png",
   "summary": "",
+
+  "basics": {
+    "origin": "",
+    "size": "",
+    "life_expectancy": "",
+    "weight": "",
+    "popularity": 0
+  },
 
   "traits": {
     "train_difficulty": 0,
     "activity_level": 0,
-    "temperament": ["", "", ""],
-    "common_diseases": ["", "", ""]
+    "barking_level": 0,
+    "shedding_level": 0,
+    "grooming_frequency": 0,
+    "good_with_children": 0,
+    "good_with_dogs": 0,
+    "adaptability": 0,
+    "affection": 0,
+    "openness_to_strangers": 0,
+    "temperament": ["", "", ""]
   },
+
+  "common_diseases": ["", "", ""],
 
   "description": ""
 }
