@@ -18,8 +18,28 @@ import re
 import sys
 
 
-# 크기(size) → 1~5 점수 (변종 구별·매칭용)
-SIZE_SCORE = {"XSmall": 1, "Small": 2, "Medium": 3, "Large": 4, "XLarge": 5}
+SIZE_LABEL = {1: "초소형", 2: "소형", 3: "중형", 4: "대형", 5: "초대형"}
+
+
+def size_score_from_weight(weight_display):
+    """AKC 체중 문자열(파운드) → 1~5 크기 점수.
+    AKC의 size 라벨(XSmall/Medium..)은 뭉뚱그려져 부정확하므로 체중으로 직접 계산.
+    초소형<5kg(1) / 소형5-10(2) / 중형10-25(3) / 대형25-40(4) / 초대형>40kg(5)
+    """
+    m = re.search(r"(\d+)\s*-\s*(\d+)\s*pound", weight_display)
+    if m:
+        lb = (float(m.group(1)) + float(m.group(2))) / 2
+    else:
+        m2 = re.search(r"(\d+)\s*pound", weight_display)
+        if not m2:
+            return 0
+        lb = float(m2.group(1))
+    kg = lb * 0.4536
+    if kg < 5:  return 1
+    if kg < 10: return 2
+    if kg < 25: return 3
+    if kg < 40: return 4
+    return 5
 
 
 def clean(text):
@@ -48,6 +68,8 @@ def convert(raw):
     def score(name):
         return t.get(name, {}).get("score", 0)
 
+    size_score = size_score_from_weight(std.get("weight_display", ""))
+
     return {
         "id": basics["breed_name_url"],          # slug (예: "beagle")
         "name_en": basics["breed_name"],
@@ -61,7 +83,7 @@ def convert(raw):
         # 화면 표시용 기본 정보 (계산 안 함)
         "basics": {
             "origin": basics.get("origin", ""),
-            "size": clean(std.get("size", "")),
+            "size": SIZE_LABEL.get(size_score, ""),   # 점수 기반 한글 등급 (점수와 항상 일치)
             "life_expectancy": basics.get("life_expectancy", ""),
             "weight": std.get("weight_display", ""),
             "popularity": basics.get("popularity_2025"),
@@ -79,7 +101,7 @@ def convert(raw):
             "adaptability":         score("adaptability_level"),
             "affection":            score("affectionate_with_family"),
             "openness_to_strangers": score("openness_to_strangers"),
-            "size_score":           SIZE_SCORE.get(clean(std.get("size", "")), 0),
+            "size_score":           size_score,
             "temperament":          temperament,
         },
 
