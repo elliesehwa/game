@@ -18,6 +18,10 @@ import re
 import sys
 
 
+# 크기(size) → 1~5 점수 (변종 구별·매칭용)
+SIZE_SCORE = {"XSmall": 1, "Small": 2, "Medium": 3, "Large": 4, "XLarge": 5}
+
+
 def clean(text):
     """AKC 원본의 깨진 글자(mojibake) 정리"""
     if not text:
@@ -51,6 +55,9 @@ def convert(raw):
         "image": f"images/{basics['breed_name_url']}.png",  # 규칙 기반 자동 경로
         "summary": clean(desc.get("akc_org_blurb", "")),
 
+        # 변종 묶음용 (푸들·닥스훈트 등). 단일 견종은 비워둠
+        "group": None,
+
         # 화면 표시용 기본 정보 (계산 안 함)
         "basics": {
             "origin": basics.get("origin", ""),
@@ -72,6 +79,7 @@ def convert(raw):
             "adaptability":         score("adaptability_level"),
             "affection":            score("affectionate_with_family"),
             "openness_to_strangers": score("openness_to_strangers"),
+            "size_score":           SIZE_SCORE.get(clean(std.get("size", "")), 0),
             "temperament":          temperament,
         },
 

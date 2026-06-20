@@ -21,6 +21,13 @@
 | `basics.popularity` | AKC 인기순위(2025) | `7` |
 | `common_diseases` | 잘 걸리는 질병 1~3개 | `["고관절 이형성증", ...]` |
 | `description` | 상세 설명 (상세 페이지용) | 긴 문단 |
+| `group` | 변종 묶음 (없으면 `null`) | `{"id":"poodle","name_ko":"푸들","variant":"toy","variant_ko":"토이"}` |
+
+### group (변종 묶음)
+푸들(토이/미니어처/스탠다드)처럼 한 견종의 변종을 묶을 때 사용.
+- 각 변종은 **별도 항목**(별도 매칭 가능)으로 두되, `group.id` 가 같으면 한 가족.
+- "푸들 하나로 보기" = `group.id == "poodle"` 인 항목들을 모으면 됨.
+- 단일 견종(비글 등)은 `null`.
 
 > ⚠️ `common_diseases`는 AKC 원본에 정리된 목록이 없어(줄글뿐) 직접/AI로 채웁니다.
 > `tests_pipe_delimited_list`(Hip Evaluation 등)는 "권장 검사 항목"이지 질병이 아님!
@@ -44,7 +51,12 @@
 | `adaptability` | 변화에 민감 | 적응 잘함 | 환경 적응력 |
 | `affection` | 독립적 | 매우 다정 | 애정 표현 |
 | `openness_to_strangers` | 낯가림 심함 | 누구나 환영 | 낯선 사람 |
+| `size_score` ⭐ | XSmall(1) | XLarge(5) | 크기 — 변종 구별 핵심 |
 | `temperament` | — | — | 성격 키워드 배열 (영어 원본) |
+
+### size_score 기준
+`XSmall=1, Small=2, Medium=3, Large=4, XLarge=5`
+푸들처럼 변종 traits가 같을 때 **크기로 구별·매칭**하게 해주는 항목.
 
 ### temperament 키워드
 AKC `temperament`("curious / friendly / merry")를 `/` 로 잘라 배열로 저장.

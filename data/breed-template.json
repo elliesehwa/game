@@ -4,13 +4,14 @@
   "name_ko": "",
   "image": "images/.png",
   "summary": "",
+  "group": null,
 
   "basics": {
     "origin": "",
     "size": "",
     "life_expectancy": "",
     "weight": "",
-    "popularity": 0
+    "popularity": null
   },
 
   "traits": {
@@ -24,6 +25,7 @@
     "adaptability": 0,
     "affection": 0,
     "openness_to_strangers": 0,
+    "size_score": 0,
     "temperament": ["", "", ""]
   },
 

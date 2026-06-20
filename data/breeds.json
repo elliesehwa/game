@@ -5,6 +5,7 @@
     "name_ko": "비글",
     "image": "images/beagle.png",
     "summary": "온순하고 사람을 잘 따르며 사냥 본능이 강한 명랑한 가족견.",
+    "group": null,
 
     "basics": {
       "origin": "England",
@@ -25,6 +26,7 @@
       "adaptability": 4,
       "affection": 3,
       "openness_to_strangers": 3,
+      "size_score": 2,
       "temperament": ["curious", "friendly", "merry"]
     },
 
@@ -38,6 +40,7 @@
     "name_ko": "바센지",
     "image": "images/basenji.png",
     "summary": "짖지 않는 '바크리스 도그'. 고양이처럼 깔끔하고 독립적인 아프리카 사냥견.",
+    "group": null,
 
     "basics": {
       "origin": "Central Africa",
@@ -58,11 +61,117 @@
       "adaptability": 3,
       "affection": 3,
       "openness_to_strangers": 3,
+      "size_score": 2,
       "temperament": ["independent", "smart", "poised"]
     },
 
     "common_diseases": ["파코니 증후군(신장)", "진행성 망막위축(PRA)", "고관절 이형성증"],
 
     "description": "바센지는 어깨높이 16~17인치의 작고 우아한 사냥견입니다. 짧고 윤기 나는 털, 동그랗게 말린 꼬리, 주름진 이마가 특징입니다. 짖지 않는 대신 요들 같은 독특한 소리를 냅니다. 고양이처럼 스스로 몸단장을 할 만큼 깔끔하고 체취가 거의 없어 실내 생활에 적합합니다. 독립적이라 낯선 사람에겐 거리를 두는 편입니다."
+  },
+  {
+    "id": "poodle-toy",
+    "name_en": "Poodle (Toy)",
+    "name_ko": "푸들 (토이)",
+    "image": "images/poodle-toy.png",
+    "summary": "작지만 우아하고 매우 영리한 토이 푸들. 털이 거의 안 빠져 알러지에 유리.",
+    "group": { "id": "poodle", "name_ko": "푸들", "variant": "toy", "variant_ko": "토이" },
+
+    "basics": {
+      "origin": "Germany",
+      "size": "XSmall",
+      "life_expectancy": "10-18 years",
+      "weight": "약 2-3kg",
+      "popularity": null
+    },
+
+    "traits": {
+      "train_difficulty": 5,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 1,
+      "grooming_frequency": 4,
+      "good_with_children": 5,
+      "good_with_dogs": 3,
+      "adaptability": 5,
+      "affection": 5,
+      "openness_to_strangers": 5,
+      "size_score": 1,
+      "temperament": ["intelligent", "agile", "self-confident"]
+    },
+
+    "common_diseases": ["고관절 이형성증", "안질환(백내장 등)", "간질"],
+
+    "description": "토이 푸들은 작은 체구에도 우아함과 운동신경을 갖춘 영리한 반려견입니다. 곱슬거리는 저알러지성 털은 거의 빠지지 않아 알러지가 있는 사람에게 유리하지만, 그만큼 정기적인 미용·손질이 필요합니다. 매우 똑똑해 훈련 습득이 빠릅니다."
+  },
+  {
+    "id": "poodle-miniature",
+    "name_en": "Poodle (Miniature)",
+    "name_ko": "푸들 (미니어처)",
+    "image": "images/poodle-miniature.png",
+    "summary": "토이와 스탠다드의 중간 크기. 똑똑하고 활동적인 저알러지성 푸들.",
+    "group": { "id": "poodle", "name_ko": "푸들", "variant": "miniature", "variant_ko": "미니어처" },
+
+    "basics": {
+      "origin": "Germany",
+      "size": "Small",
+      "life_expectancy": "10-18 years",
+      "weight": "약 5-7kg",
+      "popularity": null
+    },
+
+    "traits": {
+      "train_difficulty": 5,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 1,
+      "grooming_frequency": 4,
+      "good_with_children": 5,
+      "good_with_dogs": 3,
+      "adaptability": 5,
+      "affection": 5,
+      "openness_to_strangers": 5,
+      "size_score": 2,
+      "temperament": ["active", "proud", "very smart"]
+    },
+
+    "common_diseases": ["고관절 이형성증", "안질환(백내장 등)", "간질"],
+
+    "description": "미니어처 푸들은 토이와 스탠다드의 중간 크기로, 영리하고 활동적입니다. 푸들 공통의 곱슬거리는 저알러지성 털을 가져 털 빠짐이 적은 대신 꾸준한 미용이 필요합니다. 학습 능력이 뛰어나 다양한 훈련과 활동을 즐깁니다."
+  },
+  {
+    "id": "poodle-standard",
+    "name_en": "Poodle (Standard)",
+    "name_ko": "푸들 (스탠다드)",
+    "image": "images/poodle-standard.png",
+    "summary": "푸들 중 가장 큰 대형 변종. 우아하고 똑똑하며 운동량이 많음.",
+    "group": { "id": "poodle", "name_ko": "푸들", "variant": "standard", "variant_ko": "스탠다드" },
+
+    "basics": {
+      "origin": "Germany",
+      "size": "Medium",
+      "life_expectancy": "10-18 years",
+      "weight": "약 27-32kg",
+      "popularity": null
+    },
+
+    "traits": {
+      "train_difficulty": 5,
+      "activity_level": 4,
+      "barking_level": 4,
+      "shedding_level": 1,
+      "grooming_frequency": 4,
+      "good_with_children": 5,
+      "good_with_dogs": 3,
+      "adaptability": 5,
+      "affection": 5,
+      "openness_to_strangers": 5,
+      "size_score": 3,
+      "temperament": ["active", "proud", "very smart"]
+    },
+
+    "common_diseases": ["고관절 이형성증", "안질환(백내장 등)", "간질"],
+
+    "description": "스탠다드 푸들은 푸들 3종 중 가장 크며, 우아한 외모와 뛰어난 지능·운동능력을 갖춘 견종입니다. 저알러지성 털로 털 빠짐은 적지만 큰 체구만큼 운동량과 미용 관리가 많이 필요합니다. 가족과 매우 친밀하게 지냅니다."
   }
 ]
