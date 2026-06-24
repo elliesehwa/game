@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>워드프레스 서브도메인 + cPanel 멤버십 사이트 셋업 가이드</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563EB;
+      --primary-dark: #1D4ED8;
+      --success: #059669;
+      --warning: #D97706;
+      --danger: #DC2626;
+      --bg: #F8FAFC;
+      --card: #FFFFFF;
+      --text: #1E293B;
+      --text-secondary: #64748B;
+      --border: #E2E8F0;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #3B82F6 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .hero h1 { font-size: 36px; font-weight: 900; margin-bottom: 12px; }
+    .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+    .architecture {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 32px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .architecture h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .arch-diagram {
+      background: #F1F5F9;
+      border-radius: 8px;
+      padding: 24px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-x: auto;
+      white-space: pre;
+      color: #334155;
+    }
+
+    .step-section {
+      background: var(--card);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .step-header {
+      background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .step-title { font-size: 18px; font-weight: 700; }
+    .step-subtitle { font-size: 13px; color: var(--text-secondary); }
+
+    .step-body { padding: 24px; }
+
+    .step-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 20px 0 10px;
+      color: var(--primary-dark);
+    }
+
+    .step-body h4:first-child { margin-top: 0; }
+
+    .step-body ol, .step-body ul {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    .step-body li { margin-bottom: 8px; font-size: 14px; }
+
+    .code-block {
+      background: #1E293B;
+      color: #E2E8F0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 12px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block .comment { color: #94A3B8; }
+    .code-block .keyword { color: #93C5FD; }
+    .code-block .string { color: #86EFAC; }
+    .code-block .function { color: #FCD34D; }
+
+    .info-box {
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+
+    .info-box.tip {
+      background: #ECFDF5;
+      border-left: 4px solid var(--success);
+      color: #065F46;
+    }
+
+    .info-box.warning {
+      background: #FFFBEB;
+      border-left: 4px solid var(--warning);
+      color: #92400E;
+    }
+
+    .info-box.important {
+      background: #FEF2F2;
+      border-left: 4px solid var(--danger);
+      color: #991B1B;
+    }
+
+    .plugin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+
+    .plugin-table th {
+      background: #F1F5F9;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .plugin-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plugin-table tr:hover { background: #F8FAFC; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge.free { background: #ECFDF5; color: #059669; }
+    .badge.paid { background: #FEF3C7; color: #D97706; }
+    .badge.recommended { background: #EFF6FF; color: #2563EB; }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .checklist li::before {
+      content: '☐';
+      font-size: 18px;
+      color: var(--primary);
+    }
+
+    .cost-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .cost-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .cost-card .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+    .cost-card .price { font-size: 24px; font-weight: 900; color: var(--primary); }
+    .cost-card .period { font-size: 12px; color: var(--text-secondary); }
+
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+
+    .flow-item {
+      background: white;
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .flow-arrow { color: var(--primary); font-size: 20px; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 24px; }
+      .hero p { font-size: 15px; }
+      .step-header { padding: 14px 16px; }
+      .step-body { padding: 16px; }
+      .arch-diagram { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>워드프레스 서브도메인 멤버십 사이트</h1>
+    <p>cPanel + WordPress + 멤버십 결제 + 매일 자동 콘텐츠 구축 가이드</p>
+  </div>
+
+  <div class="container">
+
+    <!-- 아키텍처 개요 -->
+    <div class="architecture">
+      <h2>전체 구조</h2>
+      <div class="arch-diagram">
+메인 도메인: yourdomain.com (기존 사이트/게임)
+    │
+    ├── 서브도메인: members.yourdomain.com (워드프레스 멤버십)
+    │       ├── 홈페이지 (랜딩 페이지)
+    │       ├── 멤버십 플랜 & 결제
+    │       ├── 매일 자동 생성 콘텐츠
+    │       ├── 회원 전용 페이지
+    │       └── 회원 대시보드
+    │
+    └── cPanel 관리
+            ├── 서브도메인 생성
+            ├── SSL 인증서
+            ├── 데이터베이스 관리
+            └── 이메일 설정</div>
+    </div>
+
+    <!-- STEP 1: cPanel 서브도메인 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div>
+          <div class="step-title">cPanel에서 서브도메인 생성</div>
+          <div class="step-subtitle">서브도메인 설정 및 디렉토리 구성</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>cPanel 접속 및 서브도메인 생성</h4>
+        <ol>
+          <li><strong>cPanel 로그인</strong>: <code>yourdomain.com/cpanel</code> 또는 <code>yourdomain.com:2083</code> 접속</li>
+          <li><strong>도메인 섹션</strong>에서 <strong>"Domains"</strong> 또는 <strong>"서브도메인"</strong> 클릭</li>
+          <li><strong>새 도메인 생성</strong>:
+            <ul>
+              <li>도메인: <code>members.yourdomain.com</code></li>
+              <li>문서 루트: <code>/home/계정명/public_html/members</code> (자동 설정됨)</li>
+            </ul>
+          </li>
+          <li><strong>생성</strong> 버튼 클릭</li>
+        </ol>
+
+        <div class="info-box tip">
+          서브도메인 이름 추천: <code>members</code>, <code>premium</code>, <code>club</code>, <code>vip</code> 등 멤버십 성격에 맞는 이름을 선택하세요.
+        </div>
+
+        <h4>SSL 인증서 설정</h4>
+        <ol>
+          <li>cPanel > <strong>SSL/TLS Status</strong> 또는 <strong>Let's Encrypt</strong></li>
+          <li><code>members.yourdomain.com</code>에 대해 SSL 발급</li>
+          <li>자동 갱신 활성화 확인</li>
+        </ol>
+
+        <h4>MySQL 데이터베이스 생성</h4>
+        <ol>
+          <li>cPanel > <strong>MySQL Databases</strong></li>
+          <li>새 데이터베이스 생성: <code>계정_members_wp</code></li>
+          <li>새 사용자 생성 (강력한 비밀번호 사용)</li>
+          <li>사용자를 데이터베이스에 추가 (모든 권한 부여)</li>
+        </ol>
+
+        <div class="code-block">
+<span class="comment"># 생성할 정보 메모해두기</span>
+데이터베이스명: 계정_members_wp
+DB 사용자명:   계정_wp_user
+DB 비밀번호:   (생성한 비밀번호)
+DB 호스트:     localhost
+</div>
+      </div>
+    </div>
+
+    <!-- STEP 2: WordPress 설치 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div>
+          <div class="step-title">워드프레스 설치</div>
+          <div class="step-subtitle">서브도메인에 WordPress 설치하기</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>방법 A: Softaculous 자동 설치 (추천)</h4>
+        <ol>
+          <li>cPanel > <strong>Softaculous Apps Installer</strong></li>
+          <li>WordPress 검색 후 <strong>Install</strong> 클릭</li>
+          <li>설치 설정:
+            <ul>
+              <li>프로토콜: <code>https://</code></li>
+              <li>도메인: <code>members.yourdomain.com</code></li>
+              <li>디렉토리: (비워두기 - 서브도메인 루트에 설치)</li>
+              <li>사이트명, 관리자 정보 입력</li>
+              <li>언어: <strong>Korean</strong></li>
+            </ul>
+          </li>
+          <li><strong>Install</strong> 클릭</li>
+        </ol>
+
+        <h4>방법 B: 수동 설치</h4>
+        <div class="code-block">
+<span class="comment"># SSH 접속 후 서브도메인 디렉토리로 이동</span>
+<span class="keyword">cd</span> ~/public_html/members
+
+<span class="comment"># WordPress 다운로드 및 압축 해제</span>
+<span class="keyword">wget</span> https://ko.wordpress.org/latest-ko_KR.tar.gz
+<span class="keyword">tar</span> -xzf latest-ko_KR.tar.gz
+<span class="keyword">mv</span> wordpress/* .
+<span class="keyword">rm</span> -rf wordpress latest-ko_KR.tar.gz
+
+<span class="comment"># 권한 설정</span>
+<span class="keyword">chmod</span> 755 -R .
+<span class="keyword">chmod</span> 644 wp-config-sample.php
+</div>
+
+        <h4>wp-config.php 핵심 설정</h4>
+        <div class="code-block">
+<span class="comment">// wp-config.php에 추가할 설정</span>
+
+<span class="comment">// 데이터베이스 설정</span>
+<span class="keyword">define</span>(<span class="string">'DB_NAME'</span>, <span class="string">'계정_members_wp'</span>);
+<span class="keyword">define</span>(<span class="string">'DB_USER'</span>, <span class="string">'계정_wp_user'</span>);
+<span class="keyword">define</span>(<span class="string">'DB_PASSWORD'</span>, <span class="string">'비밀번호'</span>);
+<span class="keyword">define</span>(<span class="string">'DB_HOST'</span>, <span class="string">'localhost'</span>);
+
+<span class="comment">// 한국어 설정</span>
+<span class="keyword">define</span>(<span class="string">'WPLANG'</span>, <span class="string">'ko_KR'</span>);
+
+<span class="comment">// 보안 강화</span>
+<span class="keyword">define</span>(<span class="string">'DISALLOW_FILE_EDIT'</span>, <span class="keyword">true</span>);
+<span class="keyword">define</span>(<span class="string">'WP_AUTO_UPDATE_CORE'</span>, <span class="keyword">true</span>);
+
+<span class="comment">// 메모리 확장 (멤버십 플러그인용)</span>
+<span class="keyword">define</span>(<span class="string">'WP_MEMORY_LIMIT'</span>, <span class="string">'256M'</span>);
+</div>
+      </div>
+    </div>
+
+    <!-- STEP 3: 멤버십 결제 시스템 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div>
+          <div class="step-title">멤버십 결제 시스템 구축</div>
+          <div class="step-subtitle">회원 등급 + 정기 결제 + 콘텐츠 접근 제어</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>추천 멤버십 플러그인 비교</h4>
+        <table class="plugin-table">
+          <thead>
+            <tr>
+              <th>플러그인</th>
+              <th>가격</th>
+              <th>결제 지원</th>
+              <th>특징</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MemberPress</strong> <span class="badge recommended">추천</span></td>
+              <td><span class="badge paid">$179.50/년~</span></td>
+              <td>Stripe, PayPal, 국내PG</td>
+              <td>강력한 콘텐츠 보호, 드립 콘텐츠, 쿠폰</td>
+            </tr>
+            <tr>
+              <td><strong>Paid Memberships Pro</strong></td>
+              <td><span class="badge free">무료 기본</span></td>
+              <td>Stripe, PayPal, 국내PG</td>
+              <td>무료 버전 충분, 한국어 지원</td>
+            </tr>
+            <tr>
+              <td><strong>WooCommerce + Subscriptions</strong></td>
+              <td><span class="badge paid">$239/년</span></td>
+              <td>모든 PG사</td>
+              <td>확장성 최고, 한국 PG 연동 쉬움</td>
+            </tr>
+            <tr>
+              <td><strong>Restrict Content Pro</strong></td>
+              <td><span class="badge paid">$99/년~</span></td>
+              <td>Stripe, PayPal</td>
+              <td>심플하고 가벼움</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-box tip">
+          <strong>한국 결제(PG)가 필요한 경우:</strong> WooCommerce + WooCommerce Subscriptions + 아임포트(포트원) 또는 NicePay 플러그인 조합을 추천합니다. 카드결제, 계좌이체, 카카오페이, 네이버페이 등 모두 지원됩니다.
+        </div>
+
+        <h4>멤버십 등급 설계 예시</h4>
+        <div class="cost-summary">
+          <div class="cost-card">
+            <div class="label">무료 회원</div>
+            <div class="price">0원</div>
+            <div class="period">기본 콘텐츠 접근</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">베이직 멤버</div>
+            <div class="price">9,900원</div>
+            <div class="period">/월 정기결제</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">프리미엄 멤버</div>
+            <div class="price">29,900원</div>
+            <div class="period">/월 정기결제</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">VIP 연간</div>
+            <div class="price">249,000원</div>
+            <div class="period">/년 (2개월 무료)</div>
+          </div>
+        </div>
+
+        <h4>한국 PG 연동 (포트원/아임포트)</h4>
+        <div class="code-block">
+<span class="comment">// 1. WooCommerce 설치</span>
+워드프레스 관리자 > 플러그인 > 새로 추가 > "WooCommerce" 검색 > 설치
+
+<span class="comment">// 2. 포트원(아임포트) 결제 플러그인 설치</span>
+워드프레스 관리자 > 플러그인 > 새로 추가 > "아임포트" 검색 > 설치
+
+<span class="comment">// 3. 포트원 관리자 콘솔에서 API 키 발급</span>
+https://admin.portone.io/ 가입 후
+- REST API Key
+- REST API Secret
+- 가맹점 식별코드
+발급받기
+
+<span class="comment">// 4. WooCommerce > 설정 > 결제 에서 아임포트 설정</span>
+- API Key, Secret 입력
+- 결제 수단 선택 (카드, 계좌이체, 카카오페이 등)
+- 테스트 모드로 먼저 확인
+</div>
+
+        <h4>WooCommerce Subscriptions 정기결제 설정</h4>
+        <ol>
+          <li>WooCommerce > 상품 > 새로 추가</li>
+          <li>상품 유형: <strong>"단순 정기 결제"</strong> 선택</li>
+          <li>정기결제 가격, 결제 주기(월/년) 설정</li>
+          <li>무료 체험 기간 설정 (선택)</li>
+          <li>멤버십 등급과 상품 연결</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- STEP 4: 매일 자동 콘텐츠 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div>
+          <div class="step-title">매일 새로운 페이지 자동 연동</div>
+          <div class="step-subtitle">WP Cron + 드립 콘텐츠 + 자동 포스팅</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>방법 1: 드립 콘텐츠 (Drip Content)</h4>
+        <p>회원 가입일 기준으로 매일/매주 새로운 콘텐츠를 순차적으로 공개하는 방식입니다.</p>
+
+        <div class="flow-diagram">
+          <div class="flow-item">회원 가입</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">Day 1<br>콘텐츠 공개</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">Day 2<br>다음 콘텐츠</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">Day 3<br>다음 콘텐츠</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">계속...</div>
+        </div>
+
+        <div class="info-box tip">
+          MemberPress의 Drip Content 기능 또는 LearnDash의 Drip-Feed Lessons을 사용하면 코딩 없이 설정 가능합니다.
+        </div>
+
+        <h4>방법 2: 예약 게시 (Scheduled Posts)</h4>
+        <p>미리 작성해둔 글을 날짜별로 자동 게시합니다.</p>
+        <ol>
+          <li>글 작성 시 <strong>"즉시 발행"</strong> 대신 <strong>"예약"</strong> 선택</li>
+          <li>발행 날짜와 시간 설정 (매일 오전 9시 등)</li>
+          <li>한 달치를 미리 작성해 예약 가능</li>
+        </ol>
+
+        <h4>방법 3: 자동 포스팅 커스텀 코드</h4>
+        <p>아래 코드를 <code>functions.php</code>에 추가하면 매일 자동으로 새 페이지를 생성합니다.</p>
+        <div class="code-block">
+<span class="comment">// functions.php에 추가 - 매일 자동 페이지 생성</span>
+
+<span class="comment">// 1. 커스텀 크론 스케줄 등록</span>
+<span class="keyword">add_action</span>(<span class="string">'wp'</span>, <span class="string">'setup_daily_content_schedule'</span>);
+<span class="keyword">function</span> <span class="function">setup_daily_content_schedule</span>() {
+    <span class="keyword">if</span> (!<span class="function">wp_next_scheduled</span>(<span class="string">'create_daily_content'</span>)) {
+        <span class="function">wp_schedule_event</span>(
+            <span class="function">strtotime</span>(<span class="string">'today 09:00'</span>),
+            <span class="string">'daily'</span>,
+            <span class="string">'create_daily_content'</span>
+        );
+    }
+}
+
+<span class="comment">// 2. 매일 실행될 함수</span>
+<span class="keyword">add_action</span>(<span class="string">'create_daily_content'</span>, <span class="string">'generate_daily_page'</span>);
+<span class="keyword">function</span> <span class="function">generate_daily_page</span>() {
+    $today = <span class="function">date</span>(<span class="string">'Y-m-d'</span>);
+    $title = <span class="function">date</span>(<span class="string">'Y년 m월 d일'</span>) . <span class="string">' 오늘의 콘텐츠'</span>;
+
+    <span class="comment">// 중복 방지</span>
+    $existing = <span class="function">get_posts</span>([
+        <span class="string">'post_type'</span>  => <span class="string">'post'</span>,
+        <span class="string">'meta_key'</span>   => <span class="string">'daily_date'</span>,
+        <span class="string">'meta_value'</span> => $today,
+    ]);
+    <span class="keyword">if</span> (!empty($existing)) <span class="keyword">return</span>;
+
+    <span class="comment">// 새 글 생성</span>
+    $post_id = <span class="function">wp_insert_post</span>([
+        <span class="string">'post_title'</span>   => $title,
+        <span class="string">'post_content'</span> => <span class="string">'오늘의 콘텐츠 내용을 여기에...'</span>,
+        <span class="string">'post_status'</span>  => <span class="string">'publish'</span>,
+        <span class="string">'post_type'</span>    => <span class="string">'post'</span>,
+        <span class="string">'post_author'</span>  => 1,
+        <span class="string">'post_category'</span> => [<span class="function">get_cat_ID</span>(<span class="string">'Daily'</span>)],
+    ]);
+
+    <span class="keyword">if</span> ($post_id) {
+        <span class="function">update_post_meta</span>($post_id, <span class="string">'daily_date'</span>, $today);
+        <span class="function">update_post_meta</span>($post_id, <span class="string">'_membership_access'</span>, <span class="string">'premium'</span>);
+    }
+}
+</div>
+
+        <h4>방법 4: 외부 콘텐츠 자동 연동 (RSS/API)</h4>
+        <div class="code-block">
+<span class="comment">// 외부 API에서 콘텐츠 가져와서 자동 게시</span>
+<span class="keyword">add_action</span>(<span class="string">'create_daily_content'</span>, <span class="string">'fetch_and_create_content'</span>);
+<span class="keyword">function</span> <span class="function">fetch_and_create_content</span>() {
+    <span class="comment">// 외부 API 호출 (예: 뉴스, 데이터 등)</span>
+    $response = <span class="function">wp_remote_get</span>(<span class="string">'https://api.example.com/daily-content'</span>);
+
+    <span class="keyword">if</span> (<span class="function">is_wp_error</span>($response)) <span class="keyword">return</span>;
+
+    $data = <span class="function">json_decode</span>(<span class="function">wp_remote_retrieve_body</span>($response), <span class="keyword">true</span>);
+
+    <span class="function">wp_insert_post</span>([
+        <span class="string">'post_title'</span>   => <span class="function">sanitize_text_field</span>($data[<span class="string">'title'</span>]),
+        <span class="string">'post_content'</span> => <span class="function">wp_kses_post</span>($data[<span class="string">'content'</span>]),
+        <span class="string">'post_status'</span>  => <span class="string">'publish'</span>,
+    ]);
+}
+</div>
+
+        <h4>cPanel Cron Job 설정 (WP-Cron 대체)</h4>
+        <div class="info-box warning">
+          WP-Cron은 사이트 방문 시에만 실행됩니다. 방문자가 적을 때도 정확히 실행하려면 cPanel Cron Job을 설정하세요.
+        </div>
+        <div class="code-block">
+<span class="comment"># 1. wp-config.php에 WP-Cron 비활성화 추가</span>
+define(<span class="string">'DISABLE_WP_CRON'</span>, true);
+
+<span class="comment"># 2. cPanel > Cron Jobs에서 설정</span>
+<span class="comment"># 매 15분마다 실행 (매일 크론이 정확히 동작하도록)</span>
+*/15 * * * * /usr/local/bin/php /home/계정명/public_html/members/wp-cron.php
+<span class="comment"># 또는 curl 사용</span>
+*/15 * * * * curl -s https://members.yourdomain.com/wp-cron.php > /dev/null 2>&1
+</div>
+      </div>
+    </div>
+
+    <!-- STEP 5: 콘텐츠 접근 제어 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <div>
+          <div class="step-title">콘텐츠 접근 제어 설정</div>
+          <div class="step-subtitle">멤버십 등급별 콘텐츠 제한</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>커스텀 콘텐츠 제한 코드</h4>
+        <div class="code-block">
+<span class="comment">// 멤버십 등급별 콘텐츠 접근 제어</span>
+<span class="keyword">function</span> <span class="function">restrict_content_by_membership</span>($content) {
+    <span class="keyword">global</span> $post;
+
+    $required = <span class="function">get_post_meta</span>($post->ID, <span class="string">'_membership_access'</span>, <span class="keyword">true</span>);
+    <span class="keyword">if</span> (!$required) <span class="keyword">return</span> $content;
+
+    <span class="keyword">if</span> (!<span class="function">is_user_logged_in</span>()) {
+        <span class="keyword">return</span> <span class="string">'&lt;div class="membership-gate"&gt;
+            &lt;h3&gt;회원 전용 콘텐츠입니다&lt;/h3&gt;
+            &lt;p&gt;이 콘텐츠를 보려면 로그인하세요.&lt;/p&gt;
+            &lt;a href="' . wp_login_url(get_permalink()) . '"&gt;로그인&lt;/a&gt;
+            | &lt;a href="/membership"&gt;멤버십 가입&lt;/a&gt;
+        &lt;/div&gt;'</span>;
+    }
+
+    $user = <span class="function">wp_get_current_user</span>();
+    $level = <span class="function">get_user_meta</span>($user->ID, <span class="string">'membership_level'</span>, <span class="keyword">true</span>);
+
+    $hierarchy = [<span class="string">'free'</span> => 0, <span class="string">'basic'</span> => 1, <span class="string">'premium'</span> => 2, <span class="string">'vip'</span> => 3];
+
+    <span class="keyword">if</span> (($hierarchy[$level] ?? 0) < ($hierarchy[$required] ?? 0)) {
+        <span class="keyword">return</span> <span class="string">'&lt;div class="membership-gate"&gt;
+            &lt;h3&gt;상위 멤버십이 필요합니다&lt;/h3&gt;
+            &lt;p&gt;이 콘텐츠는 ' . $required . ' 등급 이상 회원만 볼 수 있습니다.&lt;/p&gt;
+            &lt;a href="/membership"&gt;멤버십 업그레이드&lt;/a&gt;
+        &lt;/div&gt;'</span>;
+    }
+
+    <span class="keyword">return</span> $content;
+}
+<span class="keyword">add_filter</span>(<span class="string">'the_content'</span>, <span class="string">'restrict_content_by_membership'</span>);
+</div>
+
+        <h4>숏코드로 부분 제한</h4>
+        <div class="code-block">
+<span class="comment">// 글 안에서 부분적으로 콘텐츠 제한</span>
+<span class="comment">// 사용법: [members level="premium"]프리미엄 전용 내용[/members]</span>
+<span class="keyword">function</span> <span class="function">members_only_shortcode</span>($atts, $content = <span class="keyword">null</span>) {
+    $atts = <span class="function">shortcode_atts</span>([<span class="string">'level'</span> => <span class="string">'basic'</span>], $atts);
+
+    <span class="keyword">if</span> (!<span class="function">is_user_logged_in</span>()) {
+        <span class="keyword">return</span> <span class="string">'&lt;p&gt;[회원 전용 콘텐츠 - 로그인 필요]&lt;/p&gt;'</span>;
+    }
+
+    $user_level = <span class="function">get_user_meta</span>(
+        <span class="function">get_current_user_id</span>(), <span class="string">'membership_level'</span>, <span class="keyword">true</span>
+    );
+    $hierarchy = [<span class="string">'free'</span> => 0, <span class="string">'basic'</span> => 1, <span class="string">'premium'</span> => 2, <span class="string">'vip'</span> => 3];
+
+    <span class="keyword">if</span> (($hierarchy[$user_level] ?? 0) >= ($hierarchy[$atts[<span class="string">'level'</span>]] ?? 0)) {
+        <span class="keyword">return</span> <span class="function">do_shortcode</span>($content);
+    }
+
+    <span class="keyword">return</span> <span class="string">'&lt;p&gt;[' . $atts['level'] . ' 등급 이상 전용]&lt;/p&gt;'</span>;
+}
+<span class="keyword">add_shortcode</span>(<span class="string">'members'</span>, <span class="string">'members_only_shortcode'</span>);
+</div>
+      </div>
+    </div>
+
+    <!-- STEP 6: 테마 & 홈페이지 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">6</div>
+        <div>
+          <div class="step-title">홈페이지 & 테마 설정</div>
+          <div class="step-subtitle">멤버십 랜딩 페이지 구성</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>추천 테마</h4>
+        <table class="plugin-table">
+          <thead>
+            <tr>
+              <th>테마</th>
+              <th>가격</th>
+              <th>특징</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Astra</strong> <span class="badge recommended">추천</span></td>
+              <td><span class="badge free">무료 / Pro $59</span></td>
+              <td>가볍고 빠름, 멤버십 사이트에 최적</td>
+            </tr>
+            <tr>
+              <td><strong>Flavor (flavor theme)</strong></td>
+              <td><span class="badge free">무료</span></td>
+              <td>음식/레시피 특화 테마</td>
+            </tr>
+            <tr>
+              <td><strong>GeneratePress</strong></td>
+              <td><span class="badge free">무료 / Premium $59</span></td>
+              <td>초경량, 커스터마이징 자유도 높음</td>
+            </tr>
+            <tr>
+              <td><strong>Kadence</strong></td>
+              <td><span class="badge free">무료 / Pro $149</span></td>
+              <td>헤더 빌더, 멤버십 레이아웃 지원</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>홈페이지 설정</h4>
+        <ol>
+          <li>워드프레스 관리자 > <strong>설정 > 읽기</strong></li>
+          <li><strong>"정적인 페이지"</strong> 선택</li>
+          <li>홈페이지: 만들어둔 랜딩 페이지 선택</li>
+          <li>글 페이지: "블로그" 페이지 선택</li>
+        </ol>
+
+        <h4>필수 페이지 구성</h4>
+        <ul class="checklist">
+          <li>홈 (랜딩 페이지) - 서비스 소개 + CTA</li>
+          <li>멤버십 플랜 - 가격표 + 가입 버튼</li>
+          <li>Daily 콘텐츠 - 매일 업데이트되는 페이지</li>
+          <li>회원 대시보드 - 내 정보 + 구독 관리</li>
+          <li>로그인 / 회원가입</li>
+          <li>결제 완료 / 감사 페이지</li>
+          <li>이용약관 / 개인정보처리방침</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 비용 정리 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">$</div>
+        <div>
+          <div class="step-title">예상 비용 정리</div>
+          <div class="step-subtitle">최소 비용 vs 추천 구성</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <h4>최소 비용 구성 (무료 플러그인)</h4>
+        <div class="cost-summary">
+          <div class="cost-card">
+            <div class="label">호스팅 (cPanel)</div>
+            <div class="price">~$5</div>
+            <div class="period">/월 (이미 보유 시 무료)</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">도메인</div>
+            <div class="price">~$12</div>
+            <div class="period">/년 (서브도메인 무료)</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">WordPress</div>
+            <div class="price">무료</div>
+            <div class="period">오픈소스</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">SSL</div>
+            <div class="price">무료</div>
+            <div class="period">Let's Encrypt</div>
+          </div>
+        </div>
+
+        <h4>추천 구성 (유료 플러그인 포함)</h4>
+        <div class="cost-summary">
+          <div class="cost-card">
+            <div class="label">MemberPress</div>
+            <div class="price">$179</div>
+            <div class="period">/년</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">Astra Pro</div>
+            <div class="price">$59</div>
+            <div class="period">/년</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">Elementor Pro</div>
+            <div class="price">$59</div>
+            <div class="period">/년 (선택)</div>
+          </div>
+          <div class="cost-card">
+            <div class="label">포트원 PG</div>
+            <div class="price">무료</div>
+            <div class="period">거래 수수료만</div>
+          </div>
+        </div>
+
+        <div class="info-box tip">
+          <strong>무료로 시작하기:</strong> Paid Memberships Pro (무료) + Astra (무료) + WooCommerce (무료)로 시작하고, 수익이 나면 유료 플러그인으로 업그레이드하는 것을 추천합니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 최종 체크리스트 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-number">✓</div>
+        <div>
+          <div class="step-title">런칭 체크리스트</div>
+          <div class="step-subtitle">사이트 오픈 전 최종 확인</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <ul class="checklist">
+          <li>cPanel 서브도메인 생성 완료</li>
+          <li>SSL 인증서 설치 (HTTPS)</li>
+          <li>WordPress 설치 및 한국어 설정</li>
+          <li>테마 설치 및 홈페이지 디자인</li>
+          <li>멤버십 플러그인 설치 및 등급 설정</li>
+          <li>결제 시스템 연동 (테스트 결제 완료)</li>
+          <li>매일 콘텐츠 자동 생성/예약 설정</li>
+          <li>콘텐츠 접근 제어 테스트</li>
+          <li>회원가입 → 결제 → 콘텐츠 접근 흐름 테스트</li>
+          <li>이메일 알림 설정 (가입, 결제, 콘텐츠 알림)</li>
+          <li>이용약관 / 개인정보처리방침 페이지</li>
+          <li>모바일 반응형 확인</li>
+          <li>백업 설정 (cPanel 자동 백업 or UpdraftPlus)</li>
+          <li>보안 플러그인 설치 (Wordfence / Sucuri)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>WordPress Subdomain Membership Setup Guide</p>
+  </footer>
+
+</body>
+</html>
